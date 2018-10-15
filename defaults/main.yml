@@ -1,0 +1,8 @@
+---
+# defaults file for reboot
+
+# How long to wait before sending a reboot.
+reboot_delay: 4
+
+# Number of seconds to wait before checking if the machine is up.
+reboot_up_delay: 8
