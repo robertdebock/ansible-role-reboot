@@ -82,7 +82,7 @@ Example Playbook
     - role: robertdebock.reboot
 ```
 
-You can also include a role in a handler of an existing role.
+You can also include a role when something changed.
 
 ```
 - name: reboot
@@ -94,13 +94,41 @@ You can also include a role in a handler of an existing role.
     - name: do something that requires a reboot.
       sestatus:
         state: disabled
-      notify:
-        - include reboot role
+      register do_something
 
-  handlers:
     - name: include reboot role
       include_role:
         name: robertdebock.reboot
+      when:
+        - do_something.changed
+```
+
+Normally a `notify` using handlers is perfect for changed tasks, but the module `include_role` [can't be used in a handler](https://github.com/ansible/ansible/issues/35542).
+
+Linting will suggest to move that `include_role` to a handler. To instruct ansible-lint to ignore this issue, use one of these two methods:
+
+1. Tag the task
+In your `playbook.yml`:
+```
+    - name: include reboot role
+      include_role:
+        name: robertdebock.reboot
+      when:
+        - do_something.changed
+      tags:
+        - skip_ansible_lint
+```
+
+2. Let molecule skip a test
+In molecule/*/molecule.yml:
+```
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      x:
+        - ANSIBLE0016
 ```
 
 To install this role:
