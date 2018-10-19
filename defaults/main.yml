@@ -6,3 +6,6 @@ reboot_delay: 4
 
 # Number of seconds to wait before checking if the machine is up.
 reboot_up_delay: 8
+
+# You can specify a message for rebooting, easier for auditing.
+reboot_message: "Ansible role robertdebock.reboot initiated a reboot."

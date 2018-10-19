@@ -35,6 +35,7 @@ Role Variables
 
 reboot_delay: How long to wait in seconds before sending a reboot. [default: 4]
 reboot_up_delay: Number of seconds to wait before checking if the machine is up. [default: 8]
+reboot_message: Include a personalized message that will be stored in logs. [default: see `defaults/main.yml`]
 
 Dependencies
 ------------

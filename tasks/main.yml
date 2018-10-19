@@ -1,7 +1,7 @@
 ---
 # tasks file for reboot
 - name: reboot the machine
-  shell: (sleep "{{ reboot_delay }}" && shutdown -r now "ansible-role-reboot" &)
+  shell: (sleep "{{ reboot_delay }}" && shutdown -r now "{{ reboot_message }}" &)
   async: 1
   poll: 0
   ignore_errors: yes
