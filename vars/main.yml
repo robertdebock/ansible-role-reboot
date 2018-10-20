@@ -1,0 +1,5 @@
+---
+# vars file for reboot
+reboot_command:
+  default: shutdown -r now {{ reboot_message }}
+  Alpine: reboot
