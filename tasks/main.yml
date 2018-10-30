@@ -27,3 +27,6 @@
     - wait for the machine to be up
   tags:
     - skip_ansible_lint
+
+- name: flush handlers
+  meta: flush_handlers

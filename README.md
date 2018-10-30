@@ -1,53 +1,76 @@
 reboot
-======
+=========
 
-[![Build Status](https://travis-ci.org/robertdebock/ansible-role-reboot.svg?branch=master)](https://travis-ci.org/robertdebock/ansible-role-reboot
+[![Build Status](https://travis-ci.org/robertdebock/ansible-role-reboot.svg?branch=master)](https://travis-ci.org/robertdebock/ansible-role-reboot)
 
 The purpose of this role is to reboot your system.
 
-[Unit tests](https://travis-ci.org/robertdebock/ansible-role-reboot are done on every commit and periodically.
+There is a module for rebooting in Ansible 2.7 and later, eventually this role can be replaced by that module. So far the reboot module misses a few features.
 
-If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-reboot/issues)
 
-To test this role locally please use [Molecule](https://github.com/metacloud/molecule):
+Example Playbook
+----------------
+
+This example is taken from `molecule/default/playbook.yml`:
 ```
-pip install molecule
-molecule test
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  become: true
+
+  roles:
+    - robertdebock.bootstrap
+    - robertdebock.reboot
+
 ```
-There are many scenarios available, please have a look in the `molecule/` directory.
-
-Context
---------
-This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
-
-Here is an overview of related roles:
-![dependencies](https://raw.githubusercontent.com/robertdebock/drawings/artifacts/rebootpng "Dependency")
-
-Requirements
-------------
-
-- A system installed with required packages to run Ansible. Hint: [bootstrap](https://galaxy.ansible.com/robertdebock/bootstrap).
-- Access to a repository containing packages, likely on the internet.
-- A recent version of Ansible. (Tests run on the last 3 release of Ansible.)
 
 Role Variables
 --------------
 
-reboot_delay: How long to wait in seconds before sending a reboot. [default: 4]
-reboot_up_delay: Number of seconds to wait before checking if the machine is up. [default: 8]
-reboot_message: Include a personalized message that will be stored in logs. [default: see `defaults/main.yml`]
+These variables are set in `defaults/main.yml`:
+```
+---
+# defaults file for reboot
 
-Dependencies
+# How long to wait before sending a reboot.
+reboot_delay: 4
+
+# Number of seconds to wait before checking if the machine is up.
+reboot_up_delay: 8
+
+# You can specify a message for rebooting, easier for auditing.
+reboot_message: "Ansible role robertdebock.reboot initiated a reboot."
+
+```
+
+Requirements
 ------------
 
-- None known.
+- Access to a repository containing packages, likely on the internet.
+- A recent version of Ansible. (Tests run on the last 3 release of Ansible.)
+
+The following roles can be installed to ensure all requirements are met, using `ansible-galaxy install -r requirements.yml`:
+
+---
+- robertdebock.bootstrap
+
+
+Context
+-------
+
+This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
+
+Here is an overview of related roles:
+![dependencies](https://raw.githubusercontent.com/robertdebock/drawings/artifacts/reboot.png "Dependency")
+
 
 Compatibility
 -------------
 
 This role has been tested against the following distributions and Ansible version:
 
-|distribution|ansible 2.4|ansible 2.5|ansible 2.6|ansible-2.7|ansible-devel|
+|distribution|ansible 2.4|ansible 2.5|ansible 2.6|ansible 2.7|ansible devel|
 |------------|-----------|-----------|-----------|-----------|-------------|
 |alpine-edge*|yes|yes|yes|yes|yes*|
 |alpine-latest|yes|yes|yes|yes|yes*|
@@ -59,93 +82,34 @@ This role has been tested against the following distributions and Ansible versio
 |debian-unstable*|yes|yes|yes|yes|yes*|
 |fedora-latest|yes|yes|yes|yes|yes*|
 |fedora-rawhide*|yes|yes|yes|yes|yes*|
-|gentoo|yes|yes|yes|yes|yes*|
 |opensuse-leap|yes|yes|yes|yes|yes*|
 |opensuse-tumbleweed|yes|yes|yes|yes|yes*|
 |ubuntu-artful|yes|yes|yes|yes|yes*|
 |ubuntu-devel*|yes|yes|yes|yes|yes*|
 |ubuntu-latest|yes|yes|yes|yes|yes*|
 
-The star means the build may fail, it's marked as an experimental build.
+A single star means the build may fail, it's marked as an experimental build.
 
-Example Playbook
-----------------
+Testing
+-------
 
+[Unit tests](https://travis-ci.org/robertdebock/ansible-role-reboot) are done on every commit and periodically.
+
+If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-reboot/issues)
+
+To test this role locally please use [Molecule](https://github.com/metacloud/molecule):
 ```
----
-- name: reboot
-  hosts: all
-  gather_facts: no
-  become: yes
-
-  roles:
-    - role: robertdebock.bootstrap
-    - role: robertdebock.reboot
+pip install molecule
+molecule test
 ```
+There are many specific scenarios available, please have a look in the `molecule/` directory.
 
-You can also include a role when something changed.
-
-```
-- name: reboot
-  hosts: all
-  gather_facts: no
-  become: yes
-
-  tasks:
-    - name: do something that requires a reboot.
-      sestatus:
-        state: disabled
-      register do_something
-
-    - name: include reboot role
-      include_role:
-        name: robertdebock.reboot
-      when:
-        - do_something.changed
-```
-
-Normally a `notify` using handlers is perfect for changed tasks, but the module `include_role` [can't be used in a handler](https://github.com/ansible/ansible/issues/35542).
-
-Linting will suggest to move that `include_role` to a handler. To instruct ansible-lint to ignore this issue, use one of these two methods:
-
-1. Tag the task
-In your `playbook.yml`:
-```
-    - name: include reboot role
-      include_role:
-        name: robertdebock.reboot
-      when:
-        - do_something.changed
-      tags:
-        - skip_ansible_lint
-```
-
-2. Let molecule skip a test
-In molecule/*/molecule.yml:
-```
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-    options:
-      x:
-        - ANSIBLE0016
-```
-
-To install this role:
-- Install this role individually using `ansible-galaxy install robertdebock.reboot
-
-Sample roles/requirements.yml: (install with `ansible-galaxy install -r roles/requirements.yml
-```
----
-- name: robertdebock.bootstrap
-- name: robertdebock.reboot
-```
 
 License
 -------
 
-Apache License, Version 2.0
+Apache-2.0
+
 
 Author Information
 ------------------
