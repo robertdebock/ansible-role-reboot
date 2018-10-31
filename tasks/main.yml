@@ -13,6 +13,9 @@
     - ansible_distribution_major_version == "7"
     - ansible_virtualization_type != "docker"
 
+- name: flush handlers
+  meta: flush_handlers
+
 - name: reboot the machine
   shell: "(sleep {{ reboot_delay }} && {{ reboot_command[ansible_distribution] | default(reboot_command['default']) }} &)"
   async: 1
