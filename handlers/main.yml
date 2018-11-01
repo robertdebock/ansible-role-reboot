@@ -7,3 +7,6 @@
 - name: wait for the machine to be up
   wait_for_connection:
     delay: "{{ reboot_up_delay }}"
+
+- name: gather facts
+  setup:

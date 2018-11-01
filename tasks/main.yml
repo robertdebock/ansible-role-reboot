@@ -17,7 +17,7 @@
   meta: flush_handlers
 
 - name: reboot the machine
-  shell: "(sleep {{ reboot_delay }} && {{ reboot_command[ansible_distribution] | default(reboot_command['default']) }} &)"
+  shell: "(sleep {{ reboot_delay }} && {{ reboot_command }} &)"
   async: 1
   poll: 0
   ignore_errors: yes
@@ -28,6 +28,7 @@
   notify:
     - wait for the start of reboot
     - wait for the machine to be up
+    - gather facts
   tags:
     - skip_ansible_lint
 
