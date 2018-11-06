@@ -1,3 +1,0 @@
-The purpose of this role is to reboot your system.
-
-There is a module for rebooting in Ansible 2.7 and later, eventually this role can be replaced by that module. So far the reboot module misses a few features.
