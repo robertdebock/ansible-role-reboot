@@ -11,7 +11,7 @@
   when:
     - ansible_pkg_mgr == "yum"
     - ansible_distribution_major_version == "7"
-    - ansible_virtualization_type != "docker"
+    - ansible_virtualization_type != "docker" or reboot_ignore_docker
 
 - name: flush handlers
   meta: flush_handlers
@@ -22,7 +22,7 @@
   poll: 0
   ignore_errors: yes
   when:
-    - ansible_virtualization_type != "docker"
+    - ansible_virtualization_type != "docker" or reboot_ignore_docker
     - (needsrestarting.skipped is defined and needsrestarting.skipped )
       or needsrestarting.changed
   notify:
