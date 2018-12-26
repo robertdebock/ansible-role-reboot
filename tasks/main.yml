@@ -28,8 +28,6 @@
       or needsrestarting.changed
   notify:
     - wait for the start of reboot
-    - wait for the machine to be up
-    - gather facts
   tags:
     - skip_ansible_lint
 

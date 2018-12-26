@@ -3,10 +3,14 @@
 - name: wait for the start of reboot
   pause:
     seconds: "{{ reboot_delay }}"
+  notify:
+    - wait for the machine to be up
 
 - name: wait for the machine to be up
   wait_for_connection:
     delay: "{{ reboot_up_delay }}"
+  notify:
+   - gather facts after reboot
 
-- name: gather facts
+- name: gather facts after reboot
   setup:
