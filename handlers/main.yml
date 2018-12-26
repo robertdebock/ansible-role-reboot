@@ -10,7 +10,7 @@
   wait_for_connection:
     delay: "{{ reboot_up_delay }}"
   notify:
-   - gather facts after reboot
+    - gather facts after reboot
 
 - name: gather facts after reboot
   setup:
