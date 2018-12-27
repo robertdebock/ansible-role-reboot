@@ -27,7 +27,9 @@
     - (needsrestarting.skipped is defined and needsrestarting.skipped )
       or needsrestarting.changed
   notify:
-    - wait for the start of reboot
+    - 1 wait for the start of reboot
+    - 2 wait for the machine to be up
+    - 3 gather facts after reboot
   tags:
     - skip_ansible_lint
 
