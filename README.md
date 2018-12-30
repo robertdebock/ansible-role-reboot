@@ -30,6 +30,10 @@ These variables are set in `defaults/main.yml`:
 ---
 # defaults file for reboot
 
+# Some operating systems can determine if a reboot is required. This
+# parameter can be set to always reboot.
+reboot_always: no
+
 # How long to wait before sending a reboot.
 reboot_delay: 4
 
