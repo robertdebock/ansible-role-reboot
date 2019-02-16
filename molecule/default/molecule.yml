@@ -34,8 +34,10 @@ platforms:
     image: opensuse:leap
   - name: reboot-opensuse-tumbleweed
     image: opensuse:tumbleweed
-  - name: reboot-ubuntu-artful
-    image: ubuntu:artful
+  - name: reboot-ubuntu-latest
+    image: ubuntu:latest
+  - name: reboot-ubuntu-rolling
+    image: ubuntu:rolling
   - name: reboot-ubuntu-devel
     image: ubuntu:devel
   - name: reboot-ubuntu-latest
