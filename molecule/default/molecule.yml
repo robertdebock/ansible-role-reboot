@@ -32,8 +32,6 @@ platforms:
     image: fedora:rawhide
   - name: reboot-opensuse-leap
     image: opensuse:leap
-  - name: reboot-opensuse-tumbleweed
-    image: opensuse:tumbleweed
   - name: reboot-ubuntu-latest
     image: ubuntu:latest
   - name: reboot-ubuntu-rolling
