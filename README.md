@@ -19,7 +19,6 @@ This example is taken from `molecule/default/playbook.yml`:
   roles:
     - robertdebock.bootstrap
     - robertdebock.reboot
-
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
@@ -44,12 +43,6 @@ reboot_up_delay: 8
 
 # You can specify a message for rebooting, easier for auditing.
 reboot_message: "Ansible role robertdebock.reboot initiated a reboot."
-
-# Some Docker containers do not allow managing services, rebooting and writing
-# to some locations in /etc. The role skips tasks that will typically fail in
-# Docker. With this parameter you can tell the role to -not- skip these tasks.
-reboot_ignore_docker: yes
-
 ```
 
 Requirements
