@@ -1,7 +1,25 @@
 ---
 # tasks file for reboot
-- name: see if a reboot is required
-  command: needs-restarting -r
+- name: install requirements
+  package:
+    name: "{{ reboot_requirements }}"
+    state: present
+  register: reboot_install_requirements
+  until: reboot_install_requirements is succeeded
+  retries: 3
+
+- name: check for needs-restarting for rhel
+  stat:
+    path: /usr/bin/needs-restarting
+  register: reboot_check_for_needs_restarting_for_rhel
+
+- name: check for needs-restarting for debian
+  stat:
+    path: /var/run/needs-restarting
+  register: reboot_check_for_needs_restarting_for_debian
+
+- name: see if a reboot is required for rhel
+  command: needs-restarting
   register: needsrestarting
   changed_when:
     - needsrestarting.rc != 0
@@ -9,15 +27,9 @@
     - needsrestarting.rc != 1
     - needsrestarting.rc != 0
   when:
-    - ansible_pkg_mgr == "yum"
-    - ( ansible_distribution == "CentOS" or
-      ansible_distribution == "EL" and
-      ansible_distribution_major_version == "7" )
     - ansible_virtualization_type != "docker"
-    - not reboot_always
-
-- name: flush handlers
-  meta: flush_handlers
+    - reboot_check_for_needs_restarting_for_rhel.stat.exists
+    - not reboot_always | bool
 
 - name: reboot the machine
   shell: "(sleep {{ reboot_delay }} && {{ reboot_command }} &)"
@@ -26,14 +38,13 @@
   ignore_errors: yes
   when:
     - ansible_virtualization_type != "docker"
-    - (needsrestarting.skipped is defined and needsrestarting.skipped )
-      or needsrestarting.changed
+    - reboot_check_for_needs_restarting_for_rhel.stat.exists and
+      needsrestarting.rc == 1 or
+      reboot_check_for_needs_restarting_for_debian.stat.exists
   notify:
     - 1 wait for the start of reboot
     - 2 wait for the machine to be up
     - 3 gather facts after reboot
-  tags:
-    - skip_ansible_lint
 
 - name: flush handlers
   meta: flush_handlers
