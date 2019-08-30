@@ -30,6 +30,7 @@
     - ansible_virtualization_type != "docker"
     - reboot_check_for_needs_restarting_for_rhel.stat.exists
     - not reboot_always | bool
+
 - name: show reboot_check_for_needs_restarting_for_rhel.stat.exists
   debug:
     var: reboot_check_for_needs_restarting_for_rhel.stat.exists
@@ -42,7 +43,6 @@
   debug:
     var: reboot_check_for_needs_restarting_for_debian.stat.exists
 
-- name: 
 - name: reboot the machine
   shell: "(sleep {{ reboot_delay }} && {{ reboot_command }} &)"
   async: 1
