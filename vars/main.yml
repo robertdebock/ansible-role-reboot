@@ -3,7 +3,7 @@
 _reboot_requirements:
   default: []
   CentOS: yum-utils
-  Fedora: yum-utils
+  Fedora: dnf-utils
 
 reboot_requirements: "{{ _reboot_requirements[ansible_distribution] | default(_reboot_requirements['default']) }}"
 
