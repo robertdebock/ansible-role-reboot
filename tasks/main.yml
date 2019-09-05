@@ -19,7 +19,7 @@
   register: reboot_check_for_needs_restarting_for_debian
 
 - name: see if a reboot is required for rhel
-  command: needs-restarting -r
+  command: "{{ reboot_needs_restarting_command }}"
   register: needsrestarting
   changed_when:
     - needsrestarting.rc != 0
