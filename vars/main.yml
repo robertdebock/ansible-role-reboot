@@ -10,6 +10,7 @@ reboot_requirements: "{{ _reboot_requirements[ansible_distribution] | default(_r
 _reboot_needs_restarting_command:
   CentOS: needs-restarting -r
   Fedora: needs-restarting
+  RedHat: needs-restarting -r
 
 reboot_needs_restarting_command: "{{ _reboot_needs_restarting_command[ansible_distribution] }}"
 
