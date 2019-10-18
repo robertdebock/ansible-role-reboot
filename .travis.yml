@@ -28,11 +28,11 @@ env:
 
 matrix:
   allow_failures:
-    - env: namespace="robertdebock/" image="docker-alpine-openrc" tag="edge"
-    - env: namespace="robertdebock/" image="docker-debian-systemd" tag="unstable"
-    - env: namespace="robertdebock/" image="docker-fedora-systemd" tag="rawhide"
-    - env: namespace="robertdebock/" image="docker-ubuntu-systemd" tag="rolling"
-    - env: namespace="robertdebock/" image="docker-ubuntu-systemd" tag="devel"
+    - env: image="docker-alpine-openrc" tag="edge"
+    - env: image="docker-debian-systemd" tag="unstable"
+    - env: image="docker-fedora-systemd" tag="rawhide"
+    - env: image="docker-ubuntu-systemd" tag="rolling"
+    - env: image="docker-ubuntu-systemd" tag="devel"
 
 cache:
   - pip
