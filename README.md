@@ -105,7 +105,6 @@ This role has been tested on these [container images](https://hub.docker.com/):
 |---------|--------------|
 |docker-alpine-openrc|yes|
 |docker-alpine-openrc|yes|
-|archlinux/|no|
 |docker-centos-systemd|no|
 |docker-centos-systemd|no|
 |docker-debian-systemd|yes|
