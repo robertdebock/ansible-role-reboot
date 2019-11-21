@@ -33,7 +33,6 @@ galaxy_info:
     - reboot
     - archlinux
     - centos
-    - opensuse
     - rhel
     - ubuntu
 
