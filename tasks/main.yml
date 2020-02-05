@@ -20,6 +20,7 @@
 
 - name: see if a reboot is required for rhel
   command: "{{ reboot_needs_restarting_command }}"
+  check_mode: no
   register: needsrestarting
   changed_when:
     - needsrestarting.rc != 0
