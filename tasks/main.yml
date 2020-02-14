@@ -38,7 +38,7 @@
   poll: 0
   ignore_errors: yes
   when:
-    - ansible_virtualization_type != "docker"
+    - ansible_virtualization_type != "docker" and ansible_virtualization_type != "container"
     - reboot_always | bool or
      ((reboot_check_for_needs_restarting_for_rhel.stat.exists and
       needsrestarting.rc == 1) or
