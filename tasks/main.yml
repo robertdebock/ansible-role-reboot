@@ -29,6 +29,7 @@
     - needsrestarting.rc != 0
   when:
     - ansible_virtualization_type != "docker"
+    - ansible_virtualization_type != "container"
     - reboot_check_for_needs_restarting_for_rhel.stat.exists
     - not reboot_always | bool
 
