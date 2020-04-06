@@ -2,12 +2,15 @@
 # vars file for reboot
 _reboot_requirements:
   default: []
+  Debian: needrestart
   CentOS: yum-utils
   Fedora: dnf-utils
+  Ubuntu: needrestart
 
 reboot_requirements: "{{ _reboot_requirements[ansible_distribution] | default(_reboot_requirements['default']) }}"
 
 _reboot_needs_restarting_command:
+  Debian: /usr/sbin/needrestart -b
   RedHat-7: needs-restarting -r
   RedHat: needs-restarting
 

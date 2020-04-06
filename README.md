@@ -17,7 +17,7 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
   gather_facts: yes
 
   roles:
-    - robertdebock.reboot
+    - role: robertdebock.reboot
 ```
 
 The machine may need to be prepared using `molecule/resources/prepare.yml`:
@@ -29,7 +29,7 @@ The machine may need to be prepared using `molecule/resources/prepare.yml`:
   become: yes
 
   roles:
-    - robertdebock.bootstrap
+    - role: robertdebock.bootstrap
 ```
 
 For verification `molecule/resources/verify.yml` run after the role has been applied.
