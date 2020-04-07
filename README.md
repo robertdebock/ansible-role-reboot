@@ -94,7 +94,6 @@ This role has been tested on these [container images](https://hub.docker.com/):
 
 |container|tags|
 |---------|----|
-|alpine|all|
 |debian|all|
 |el|7, 8|
 |fedora|all|
@@ -114,6 +113,7 @@ Some variarations of the build matrix do not work. These are the variations and 
 | variation                 | reason                 |
 |---------------------------|------------------------|
 | archlinux/base | New-style module did not handle its own exit |
+| alpine | the `ansible_virtualization_type` is incorrect on GitHub actions. |
 
 
 ## Testing
