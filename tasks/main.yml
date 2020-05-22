@@ -8,59 +8,45 @@
   until: reboot_install_requirements is succeeded
   retries: 3
 
-- name: check for needs-restarting for rhel
-  stat:
-    path: /usr/bin/needs-restarting
-  register: reboot_check_for_needs_restarting_for_rhel
-
-- name: check for needs-restarting for debian
-  stat:
-    path: /var/run/needs-restarting
-  register: reboot_check_for_needs_restarting_for_debian
-
-- name: see if a reboot is required for rhel
-  command: "{{ reboot_needs_restarting_command }}"
-  check_mode: no
-  register: reboot_needsrestarting
-  changed_when:
-    - reboot_needsrestarting.rc != 0
-  failed_when:
-    - reboot_needsrestarting.rc != 1
-    - reboot_needsrestarting.rc != 0
-  when:
+- when:
     - ansible_virtualization_type != "docker"
     - ansible_virtualization_type != "container"
-    - reboot_check_for_needs_restarting_for_rhel.stat.exists
-    - not reboot_always | bool
+    - ansible_os_family == "RedHat"
+  block:
+    - name: check for needs-restarting executable (rhel)
+      stat:
+        path: /usr/bin/needs-restarting
+      register: reboot_rhel_needs_restarting_executable
 
-- name: see if a reboot is required for debian
-  command: "{{ reboot_needs_restarting_command }}"
-  check_mode: no
-  register: reboot_debian_needrestarting
-  changed_when: no
-  when:
+    - name: see if a reboot is required (rhel)
+      command: needs-restarting -r
+      check_mode: no
+      register: reboot_rhel_needsrestarting
+      changed_when: reboot_rhel_needsrestarting.rc == 1
+      failed_when: reboot_rhel_needsrestarting.rc not in [0,1]
+      when: reboot_rhel_needs_restarting_executable.stat.exists
+
+- when:
     - ansible_virtualization_type != "docker"
     - ansible_virtualization_type != "container"
     - ansible_os_family == "Debian"
+  block:
+    - name: check for needrestart executable (debian)
+      stat:
+        path: /usr/sbin/needrestart
+      register: reboot_debian_needsrestart_executable
 
-- name: reboot the machine
-  shell: "(sleep {{ reboot_delay }} && {{ reboot_command }} &)"
-  async: 1
-  poll: 0
-  ignore_errors: yes
-  when:
+    - name: see if a reboot is required (debian)
+      command: needrestart -b
+      check_mode: no
+      register: reboot_debian_needrestarting
+      changed_when: "'NEEDRESTART-KSTA: 3' in reboot_debian_needrestarting.stdout_lines"
+      when: reboot_debian_needsrestart_executable.stat.exists
+
+- when:
     - ansible_virtualization_type != "docker"
     - ansible_virtualization_type != "container"
-    - reboot_always | bool or
-      ((reboot_check_for_needs_restarting_for_rhel.stat.exists and
-      reboot_needsrestarting.rc == 1) or
-      reboot_check_for_needs_restarting_for_debian.stat.exists) or
-      ("'NEEDRESTART-KSTA' in reboot_debian_needrestarting.stdout" and
-      "'3' in reboot_debian_needrestarting.stdout")
-  notify:
-    - 1 wait for the start of reboot
-    - 2 wait for the machine to be up
-    - 3 gather facts after reboot
-
-- name: flush handlers
-  meta: flush_handlers
+    - (reboot_always | bool)
+      or (reboot_rhel_needsrestarting.changed | default(false))
+      or (reboot_debian_needrestarting.changed | default(false))
+  include_tasks: reboot.yml
