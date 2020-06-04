@@ -2,9 +2,9 @@
 
 The purpose of this role is to reboot your system.
 
-|Travis|GitHub|Quality|Downloads|
-|------|------|-------|---------|
-|[![travis](https://travis-ci.com/robertdebock/ansible-role-reboot.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-reboot)|[![github](https://github.com/robertdebock/ansible-role-reboot/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-reboot/actions)|[![quality](https://img.shields.io/ansible/quality/30570)](https://galaxy.ansible.com/robertdebock/reboot)|[![downloads](https://img.shields.io/ansible/role/d/30570)](https://galaxy.ansible.com/robertdebock/reboot)|
+|Travis|GitHub|Quality|Downloads|Version|
+|------|------|-------|---------|-------|
+|[![travis](https://travis-ci.com/robertdebock/ansible-role-reboot.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-reboot)|[![github](https://github.com/robertdebock/ansible-role-reboot/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-reboot/actions)|[![quality](https://img.shields.io/ansible/quality/30570)](https://galaxy.ansible.com/robertdebock/reboot)|[![downloads](https://img.shields.io/ansible/role/d/30570)](https://galaxy.ansible.com/robertdebock/reboot)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-reboot.svg)](https://github.com/robertdebock/ansible-role-reboot/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
