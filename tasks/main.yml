@@ -47,6 +47,6 @@
     - ansible_virtualization_type != "docker"
     - ansible_virtualization_type != "container"
     - (reboot_always | bool)
-      or (reboot_rhel_needsrestarting.changed | default(false))
-      or (reboot_debian_needrestarting.changed | default(false))
+      or (reboot_rhel_needsrestarting.changed | default(no))
+      or (reboot_debian_needrestarting.changed | default(no))
   include_tasks: reboot.yml
