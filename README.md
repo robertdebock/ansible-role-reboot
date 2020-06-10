@@ -108,14 +108,6 @@ The minimum version of Ansible required is 2.8 but tests have been done to:
 - The current version.
 - The development version.
 
-## [Exceptions](#exceptions)
-
-Some variarations of the build matrix do not work. These are the variations and reasons why the build won't work:
-
-| variation                 | reason                 |
-|---------------------------|------------------------|
-| archlinux/base | New-style module did not handle its own exit |
-| alpine | the `ansible_virtualization_type` is incorrect on GitHub actions. |
 
 
 ## [Testing](#testing)
