@@ -1,5 +1,6 @@
 ---
 # vars file for reboot
+
 _reboot_requirements:
   default: []
   Debian: needrestart
