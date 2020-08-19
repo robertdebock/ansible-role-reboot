@@ -4,6 +4,7 @@
     that:
       - reboot_always is defined
       - reboot_always | type_debug == "bool"
+    quiet: yes
 
 - name: test if reboot_delay is set correctly
   assert:
@@ -11,6 +12,7 @@
       - reboot_delay is defined
       - reboot_delay | int
       - reboot_delay | int >= 0
+    quiet: yes
 
 - name: test if reboot_up_delay is set correctly
   assert:
@@ -18,9 +20,11 @@
       - reboot_up_delay is defined
       - reboot_up_delay | int
       - reboot_up_delay | int >= 0
+    quiet: yes
 
 - name: test if reboot_message is set correctly
   assert:
     that:
       - reboot_message is defined
       - reboot_message | length > 0
+    quiet: yes
