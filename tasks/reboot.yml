@@ -3,7 +3,7 @@
   meta: flush_handlers
 
 - name: reboot the machine
-  shell: "(sleep {{ reboot_delay }} && {{ reboot_command }} &)"  # noqa 301
+  shell: "(sleep {{ reboot_delay }} && {{ reboot_command }} &)"  # noqa 301 This was before the reboot module existed.
   async: 1
   poll: 0
   ignore_errors: yes
