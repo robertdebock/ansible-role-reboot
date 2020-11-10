@@ -23,7 +23,7 @@
       check_mode: no
       register: reboot_rhel_needsrestarting
       changed_when: reboot_rhel_needsrestarting.rc == 1
-      failed_when: reboot_rhel_needsrestarting.rc not in [0,1]
+      failed_when: reboot_rhel_needsrestarting.rc not in [ 0, 1 ]
       when: reboot_rhel_needs_restarting_executable.stat.exists
 
 - when:
