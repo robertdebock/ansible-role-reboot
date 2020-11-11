@@ -10,7 +10,7 @@
   assert:
     that:
       - reboot_delay is defined
-      - reboot_delay | int
+      - reboot_delay is number
       - reboot_delay | int >= 0
     quiet: yes
 
@@ -18,7 +18,7 @@
   assert:
     that:
       - reboot_up_delay is defined
-      - reboot_up_delay | int
+      - reboot_up_delay is number
       - reboot_up_delay | int >= 0
     quiet: yes
 
