@@ -3,7 +3,7 @@
   assert:
     that:
       - reboot_always is defined
-      - reboot_always | type_debug == "bool"
+      - reboot_always is boolean
     quiet: yes
 
 - name: test if reboot_delay is set correctly
