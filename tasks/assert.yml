@@ -11,7 +11,7 @@
     that:
       - reboot_delay is defined
       - reboot_delay is number
-      - reboot_delay | int >= 0
+      - reboot_delay >= 0
     quiet: yes
 
 - name: test if reboot_up_delay is set correctly
@@ -19,7 +19,7 @@
     that:
       - reboot_up_delay is defined
       - reboot_up_delay is number
-      - reboot_up_delay | int >= 0
+      - reboot_up_delay >= 0
     quiet: yes
 
 - name: test if reboot_message is set correctly
