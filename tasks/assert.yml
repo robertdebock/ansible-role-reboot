@@ -26,5 +26,4 @@
   assert:
     that:
       - reboot_message is defined
-      - reboot_message | length > 0
     quiet: yes
