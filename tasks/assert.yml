@@ -27,4 +27,5 @@
   assert:
     that:
       - reboot_message is defined
+      - reboot_message is string
     quiet: yes
