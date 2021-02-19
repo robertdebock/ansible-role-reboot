@@ -7,7 +7,7 @@
   delegate_to: localhost
 
 - name: install requirements
-  package:
+  ansible.builtin.package:
     name: "{{ reboot_requirements }}"
     state: present
 
@@ -52,7 +52,7 @@
     - ansible_os_family == "Debian"
 
 - name: include reboot
-  include_tasks: reboot.yml
+  ansible.builtin.include_tasks: reboot.yml
   when:
     - ansible_connection != "docker"
     - (reboot_always | bool)
