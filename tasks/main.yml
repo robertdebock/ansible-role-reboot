@@ -14,7 +14,7 @@
 - name: configure redhat
   block:
     - name: check for needs-restarting executable (rhel)
-      stat:
+      ansible.builtin.stat:
         path: /usr/bin/needs-restarting
       register: reboot_rhel_needs_restarting_executable
 
@@ -35,7 +35,7 @@
 - name: configure debian
   block:
     - name: check for needrestart executable (debian)
-      stat:
+      ansible.builtin.stat:
         path: /usr/sbin/needrestart
       register: reboot_debian_needsrestart_executable
 
