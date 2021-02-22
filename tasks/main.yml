@@ -19,7 +19,7 @@
       register: reboot_rhel_needs_restarting_executable
 
     - name: see if a reboot is required (rhel)
-      command: needs-restarting -r
+      ansible.builtin.command: needs-restarting -r
       check_mode: no
       register: reboot_rhel_needsrestarting
       changed_when:
@@ -40,7 +40,7 @@
       register: reboot_debian_needsrestart_executable
 
     - name: see if a reboot is required (debian)
-      command: needrestart -b
+      ansible.builtin.command: needrestart -b
       check_mode: no
       register: reboot_debian_needrestarting
       changed_when:
