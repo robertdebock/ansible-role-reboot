@@ -52,7 +52,8 @@
     - ansible_os_family == "Debian"
 
 - name: include reboot
-  ansible.builtin.include_tasks: reboot.yml
+  ansible.builtin.include_tasks:
+    file: reboot.yml
   when:
     - ansible_connection != "docker"
     - (reboot_always | bool)
