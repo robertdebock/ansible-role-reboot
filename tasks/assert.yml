@@ -28,4 +28,5 @@
     that:
       - reboot_message is defined
       - reboot_message is string
+      - reboot_message is not none
     quiet: yes
