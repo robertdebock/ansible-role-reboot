@@ -1,4 +1,4 @@
-# Ansible role [reboot](#reboot)
+# [Ansible role reboot](#reboot)
 
 The purpose of this role is to reboot your system.
 
