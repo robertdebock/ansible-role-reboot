@@ -15,7 +15,7 @@
 - name: Configure redhat
   when:
     - ansible_connection not in [ "container", "docker", "community.docker.docker" ]
-    - ansible_os_family in [ "RedHat", "Rocky" ]
+    - ansible_facts['os_family'] in [ "RedHat", "Rocky" ]
   block:
     - name: Check for needs-restarting executable (rhel)
       ansible.builtin.stat:
@@ -37,7 +37,7 @@
 - name: Configure debian
   when:
     - ansible_connection not in [ "container", "docker", "community.docker.docker" ]
-    - ansible_os_family == "Debian"
+    - ansible_facts['os_family'] == "Debian"
   block:
     - name: Check for needrestart executable (debian)
       ansible.builtin.stat:
